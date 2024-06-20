@@ -2,22 +2,62 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Article;
 
 @Mapper
 public interface ArticleDao {
 	
-	public void makeTestData();
-
-	public Article doWrite(String title, String body);
+	@Insert("""
+			insert into article
+				set regDate = now()
+					, updateDate = now()
+					, title = #{title}
+					, `body` = #{body}
+			""")
+	public void doWrite(String title, String body);
 	
-	public void doDelete(Article foundArticle);
-	
-	public Article getArticleById(int id);
-		
-	public void doModify(Article foundArticle, String title, String body);
-
+	@Select("""
+			SELECT * 
+				FROM article 
+				ORDER BY id DESC
+			""")
 	public List<Article> showList();
+	
+	@Select("""
+			SELECT * 
+				FROM article 
+				WHERE id = #{id}
+			""")
+	public Article getArticleById(int id);
+	
+	@Update("""
+			<script>
+			UPDATE article 
+				SET updateDate = now()
+					<if test="title != null and title != ''">
+						, title = #{title}
+					</if>
+					<if test="body != null and body != ''">
+						, `body` = #{body} 
+					</if>
+				where id = #{id}
+			</script>
+			""")
+	public void doModify(int id, String title, String body);
+	
+	@Delete("""
+			DELETE FROM article 
+				WHERE id = #{id}
+			""")
+	public void doDelete(int id);
+	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
+
 }

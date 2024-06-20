@@ -22,9 +22,11 @@ public class UsrArticleController {
 	@GetMapping("/usr/article/doWrite")
 	@ResponseBody
 	public Article doWrite(@RequestParam String title, @RequestParam String body) {
-		Article article = articleService.doWrite(title, body);
+		articleService.doWrite(title, body);
 		
-		return article;
+		int id = articleService.getLastInsertId();
+		
+		return articleService.getArticleById(id);
 	}
 	
 	@GetMapping("/usr/article/showList")
@@ -39,23 +41,10 @@ public class UsrArticleController {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
-			return String.format("<script>alert('%d번 게시물은 존재하지 않습니다.'); location.replace('showList');</script>", id);
+			return id + "번 게시물은 존재하지 않습니다.";
 		}
 		
 		return foundArticle;
-	}
-	
-	@GetMapping("/usr/article/doDelete")
-	@ResponseBody
-	public String doDelete(@RequestParam int id) {
-		Article foundArticle = articleService.getArticleById(id);
-		
-		if (foundArticle == null) {
-			return String.format("<script>alert('%d번 게시물은 존재하지 않습니다.'); location.replace('showList');</script>", id);
-		}
-		
-		articleService.doDelete(foundArticle);
-		return String.format("<script>alert('%d번 게시물이 삭제되었습니다.'); location.replace('showList');</script>", id);
 	}
 	
 	@GetMapping("/usr/article/doModify")
@@ -64,12 +53,26 @@ public class UsrArticleController {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
-			return String.format("<script>alert('%d번 게시물은 존재하지 않습니다.'); location.replace('showList');</script>", id);
+			return id + "번 게시물은 존재하지 않습니다.";
 		}
 		
-		articleService.doModify(foundArticle, title, body);
+		articleService.doModify(id, title, body);
 		
-		return String.format("<script>alert('%d번 게시물이 수정되었습니다.'); location.replace('showList');</script>", id);
+		return id + "번 게시물이 수정되었습니다.";
 	}
+	
+	@GetMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(@RequestParam int id) {
+		Article foundArticle = articleService.getArticleById(id);
+		
+		if (foundArticle == null) {
+			return id + "번 게시물은 존재하지 않습니다.";
+		}
+		
+		articleService.doDelete(id);
+		return id + "번 게시물이 삭제되었습니다.";
+	}
+	
 	
 }
