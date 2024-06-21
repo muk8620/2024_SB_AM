@@ -60,7 +60,7 @@ public class UsrMemberController {
 	
 	@GetMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData<String> doLogin(HttpSession session, String loginId, String loginPw) {
+	public ResultData doLogin(HttpSession session, String loginId, String loginPw) {
 		
 		if (session.getAttribute("loginedMemberId") != null) {
 			return ResultData.from("F-L", "로그아웃 후 이용해주세요.");
@@ -84,8 +84,8 @@ public class UsrMemberController {
 			return ResultData.from("F-4", "비밀번호를 확인해주세요"); 
 		}
 		
-		session.setAttribute("loginedMemberId", loginId);
-		return ResultData.from("S-1", String.format("%s님 환영합니다", member.getNickname()), (String) session.getAttribute("loginedMemberId"));
+		session.setAttribute("loginedMemberId", member.getId());
+		return ResultData.from("S-1", String.format("%s님 환영합니다", member.getNickname()));
 	}
 	
 	@GetMapping("/usr/member/doLogout")

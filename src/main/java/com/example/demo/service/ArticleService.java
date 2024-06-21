@@ -16,8 +16,12 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 
-	public void writeArticle(String title, String body) {
-		articleDao.writeArticle(title, body);
+	public void writeArticle(int loginedMemberId, String title, String body) {
+		articleDao.writeArticle(loginedMemberId, title, body);
+	}
+	
+	public Article forPrintArticle(int id) {
+		return articleDao.forPrintArticle(id);
 	}
 
 	public Article getArticleById(int id) {
@@ -39,5 +43,6 @@ public class ArticleService {
 	public int getLastInsertId() {
 		return articleDao.getLastInsertId();
 	}
+
 
 }

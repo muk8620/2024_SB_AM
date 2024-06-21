@@ -17,26 +17,34 @@ public interface ArticleDao {
 			insert into article
 				set regDate = now()
 					, updateDate = now()
+					, memberId = #{loginedMemberId}
 					, title = #{title}
 					, `body` = #{body}
 			""")
-	public void writeArticle(String title, String body);
+	public void writeArticle(int loginedMemberId, String title, String body);
+	
+	@Select("""
+			SELECT a.* 
+					, m.nickname writerName
+				FROM article a 
+				inner join `member` m
+				on a.memberId = m.id
+				ORDER BY a.id DESC
+			""")
+	public List<Article> getArticles();
+	
+	@Select("""
+			SELECT a.* 
+					, m.nickname writerName
+				FROM article a 
+				inner join `member` m
+				on a.memberId = m.id
+				WHERE a.id = #{id}
+			""")
+	public Article forPrintArticle(int id);
 	
 	@Select("""
 			SELECT *
-				FROM article 
-				ORDER BY id DESC
-			""")
-	public List<Article> getArticles();
-//	SELECT a.* 
-//	, m.nickname writerName
-//	FROM article a 
-//	inner join `member` m
-//	on a.memberId = m.id
-//	ORDER BY id DESC
-	
-	@Select("""
-			SELECT * 
 				FROM article 
 				WHERE id = #{id}
 			""")
@@ -65,5 +73,6 @@ public interface ArticleDao {
 	
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+
 
 }
