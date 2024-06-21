@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
@@ -22,7 +21,7 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doWrite(@RequestParam String title, @RequestParam String body) {
+	public ResultData<Article> doWrite(String title, String body) {
 		articleService.writeArticle(title, body);
 		
 		int id = articleService.getLastInsertId();
@@ -32,19 +31,18 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/showList")
 	@ResponseBody
-	public ResultData showList() {
+	public ResultData<List<Article>> showList() {
 		List<Article> articles = articleService.getArticles();
 		
 		if (articles.size() == 0) {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
 		}
-		
 		return ResultData.from("S-1", "게시물 목록", articles);
 	}
 	
 	@GetMapping("/usr/article/showDetail")
 	@ResponseBody
-	public ResultData showDetail(@RequestParam int id) {
+	public ResultData<Article> showDetail(int id) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
@@ -56,7 +54,7 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(@RequestParam int id, @RequestParam String title, @RequestParam String body) {
+	public ResultData doModify(int id, String title, String body) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
@@ -70,7 +68,7 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(@RequestParam int id) {
+	public ResultData doDelete(int id) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
