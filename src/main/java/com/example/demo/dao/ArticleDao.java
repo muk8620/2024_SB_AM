@@ -20,17 +20,20 @@ public interface ArticleDao {
 					, title = #{title}
 					, `body` = #{body}
 			""")
-	public void doWrite(String title, String body);
+	public void writeArticle(String title, String body);
 	
 	@Select("""
-			SELECT a.* 
-					, m.nickname writerName
-				FROM article a 
-				inner join `member` m
-				on a.memberId = m.id
+			SELECT *
+				FROM article 
 				ORDER BY id DESC
 			""")
-	public List<Article> showList();
+	public List<Article> getArticles();
+//	SELECT a.* 
+//	, m.nickname writerName
+//	FROM article a 
+//	inner join `member` m
+//	on a.memberId = m.id
+//	ORDER BY id DESC
 	
 	@Select("""
 			SELECT * 
@@ -52,13 +55,13 @@ public interface ArticleDao {
 				where id = #{id}
 			</script>
 			""")
-	public void doModify(int id, String title, String body);
+	public void modifyArticle(int id, String title, String body);
 	
 	@Delete("""
 			DELETE FROM article 
 				WHERE id = #{id}
 			""")
-	public void doDelete(int id);
+	public void deleteArticle(int id);
 	
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();

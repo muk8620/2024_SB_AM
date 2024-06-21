@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
 
 @Controller
 public class UsrArticleController {
@@ -21,58 +22,62 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doWrite")
 	@ResponseBody
-	public Article doWrite(@RequestParam String title, @RequestParam String body) {
-		articleService.doWrite(title, body);
+	public ResultData doWrite(@RequestParam String title, @RequestParam String body) {
+		articleService.writeArticle(title, body);
 		
 		int id = articleService.getLastInsertId();
 		
-		return articleService.getArticleById(id);
+		return ResultData.from("S-1", String.format("%d번 게시물을 작성했습니다.", id), articleService.getArticleById(id));
 	}
 	
 	@GetMapping("/usr/article/showList")
 	@ResponseBody
-	public List<Article> showList() {
-		return articleService.showList();
+	public ResultData showList() {
+		List<Article> articles = articleService.getArticles();
+		
+		if (articles.size() == 0) {
+			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
+		}
+		
+		return ResultData.from("S-1", "게시물 목록", articles);
 	}
 	
 	@GetMapping("/usr/article/showDetail")
 	@ResponseBody
-	public Object showDetail(@RequestParam int id) {
+	public ResultData showDetail(@RequestParam int id) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
+			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		return foundArticle;
+		return ResultData.from("S-1", String.format("%d번 상세보기", id), foundArticle);
 	}
 	
 	@GetMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam int id, @RequestParam String title, @RequestParam String body) {
+	public ResultData doModify(@RequestParam int id, @RequestParam String title, @RequestParam String body) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
+			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		articleService.doModify(id, title, body);
+		articleService.modifyArticle(id, title, body);
 		
-		return id + "번 게시물이 수정되었습니다.";
+		return ResultData.from("S-1", String.format("%d번 게시물이 수정되었습니다.", id));
 	}
 	
 	@GetMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(@RequestParam int id) {
+	public ResultData doDelete(@RequestParam int id) {
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if (foundArticle == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
+			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		articleService.doDelete(id);
-		return id + "번 게시물이 삭제되었습니다.";
+		articleService.deleteArticle(id);
+		return ResultData.from("S-1", String.format("%d번 게시물이 삭제되었습니다.", id));
 	}
-	
-	
 }

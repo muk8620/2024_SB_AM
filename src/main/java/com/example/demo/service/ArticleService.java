@@ -16,24 +16,24 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 
-	public void doWrite(String title, String body) {
-		articleDao.doWrite(title, body);
+	public void writeArticle(String title, String body) {
+		articleDao.writeArticle(title, body);
 	}
 
 	public Article getArticleById(int id) {
 		return articleDao.getArticleById(id);
 	}
 	
-	public List<Article> showList() {
-		return articleDao.showList();
+	public List<Article> getArticles() {
+		return articleDao.getArticles();
 	}
 	
-	public void doModify(int id, String title, String body) {
-		articleDao.doModify(id, title, body);
+	public void modifyArticle(int id, String title, String body) {
+		articleDao.modifyArticle(id, title, body);
 	}
 
-	public void doDelete(int id) {
-		articleDao.doDelete(id);
+	public void deleteArticle(int id) {
+		articleDao.deleteArticle(id);
 	}
 
 	public int getLastInsertId() {
