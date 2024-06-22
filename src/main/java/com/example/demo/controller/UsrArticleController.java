@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
@@ -25,9 +26,18 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
 		
-		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		if (session.getAttribute("loginedMemberId") == null) {
+			return ResultData.from("F-L", "로그인 후 이용해주세요");
+		}
 		
-		articleService.writeArticle(loginedMemberId, title, body);
+		if (Util.isEmpty(title)) {
+			return ResultData.from("F-1", "제목을 입력해주세요");
+		}
+		if (Util.isEmpty(body)) {
+			return ResultData.from("F-2", "내용을 입력해주세요");
+		}
+		
+		articleService.writeArticle((int) session.getAttribute("loginedMemberId"), title, body);
 		
 		int id = articleService.getLastInsertId();
 		
@@ -54,7 +64,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		return ResultData.from("S-1", String.format("%d번 상세보기", id), foundArticle);
+		return ResultData.from("S-1", String.format("%d번 게시물 상세보기", id), foundArticle);
 	}
 	
 	@GetMapping("/usr/article/doModify")
