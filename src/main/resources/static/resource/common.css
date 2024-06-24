@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html > body {
+	font-family: 'TTLaundryGothicB';
+	text-underline-position: under;
+}
+
+.table-box-type > table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+
+.table-box-type > table th, .table-box-type > table td {
+	padding: 10px 0;
+	text-align: center;
+}
