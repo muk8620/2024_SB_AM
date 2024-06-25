@@ -11,6 +11,7 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -55,22 +56,14 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/detail")
-	public String showDetail(HttpSession sesssion, Model model, int id) {
+	public String showDetail(HttpServletRequest req, Model model, int id) {
 		
-		int loginedMemberId = 0;
-		
-		if (sesssion.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int) sesssion.getAttribute("loginedMemberId");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.forPrintArticle(id);
 		
-//		if (foundArticle == null) {
-//			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
-//		}
-		
 		model.addAttribute("article", article);
-		model.addAttribute("loginedMemberId", loginedMemberId);
+		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/detail";
 	}
