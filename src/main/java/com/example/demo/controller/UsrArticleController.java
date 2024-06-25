@@ -96,20 +96,9 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(HttpSession session, int id) {
-		Article foundArticle = articleService.getArticleById(id);
-		
-		if (foundArticle == null) {
-			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
-		}
-		
-		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		
-		if (foundArticle.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-A", "해당 게시물에 대한 권한이 없습니다.");
-		}
-		
+	public String doDelete(int id) {
 		articleService.deleteArticle(id);
-		return ResultData.from("S-1", String.format("%d번 게시물이 삭제되었습니다.", id));
+		
+		return Util.jsReplace(String.format("%d번 게시물을 삭제햇습니다.", id), "list");
 	}
 }

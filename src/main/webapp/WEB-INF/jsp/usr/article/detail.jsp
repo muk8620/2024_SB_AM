@@ -35,7 +35,7 @@
 				<button class="bg-indigo-500 rounded-md p-4 ml-2" onclick="history.back();"> 뒤로가기</button>
 				<c:if test="${loginedMemberId == article.memberId}">
 					<a class="bg-indigo-500 rounded-md p-4 ml-2" href="modify?id=${article.id }">수정</a>
-					<a class="bg-indigo-500 rounded-md p-4 ml-2" href="delete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+					<a class="bg-indigo-500 rounded-md p-4 ml-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 				</c:if>
 			</div>
 		</div>
