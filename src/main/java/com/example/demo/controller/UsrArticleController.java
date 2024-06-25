@@ -54,36 +54,44 @@ public class UsrArticleController {
 		return "usr/article/list";
 	}
 	
-	@GetMapping("/usr/article/showDetail")
-	@ResponseBody
-	public ResultData<Article> showDetail(int id) {
-		Article foundArticle = articleService.forPrintArticle(id);
+	@GetMapping("/usr/article/detail")
+	public String showDetail(HttpSession sesssion, Model model, int id) {
 		
-		if (foundArticle == null) {
-			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
+		int loginedMemberId = 0;
+		
+		if (sesssion.getAttribute("loginedMemberId") != null) {
+			loginedMemberId = (int) sesssion.getAttribute("loginedMemberId");
 		}
 		
-		return ResultData.from("S-1", String.format("%d번 게시물 상세보기", id), foundArticle);
+		Article article = articleService.forPrintArticle(id);
+		
+//		if (foundArticle == null) {
+//			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
+//		}
+		
+		model.addAttribute("article", article);
+		model.addAttribute("loginedMemberId", loginedMemberId);
+		
+		return "usr/article/detail";
 	}
 	
-	@GetMapping("/usr/article/doModify")
-	@ResponseBody
-	public ResultData doModify(HttpSession session, int id, String title, String body) {
+	@GetMapping("/usr/article/modify")
+	public String modify(HttpSession session, int id, String title, String body) {
 		Article foundArticle = articleService.getArticleById(id);
 		
-		if (foundArticle == null) {
-			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
-		}
+//		if (foundArticle == null) {
+//			return ResultData.from("F-1", String.format("%d번 게시물은 존재하지 않습니다.", id));
+//		}
 		
 		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		
-		if (foundArticle.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-A", "해당 게시물에 대한 권한이 없습니다.");
-		}
+//		if (foundArticle.getMemberId() != loginedMemberId) {
+//			return ResultData.from("F-A", "해당 게시물에 대한 권한이 없습니다.");
+//		}
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return ResultData.from("S-1", String.format("%d번 게시물이 수정되었습니다.", id));
+		return "usr/article/modify";
 	}
 	
 	@GetMapping("/usr/article/doDelete")
