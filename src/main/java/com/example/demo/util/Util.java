@@ -28,4 +28,23 @@ public class Util {
 				""" , msg, uri);
 	}
 	
+	public static String jsHistroyBack(String msg) {
+		
+		if (msg == null) {
+			msg = "";
+		}
+		
+		return String.format("""
+					<script>
+						const msg = '%s'.trim();
+						
+						if (msg.length > 0) {
+							alert(msg);
+						}
+						
+						history.back();
+					</script>
+				""" , msg);
+	}
+	
 }

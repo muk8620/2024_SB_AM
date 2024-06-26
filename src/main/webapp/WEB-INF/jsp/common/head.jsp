@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,14 @@
 		<div><a class="h-full px-3 flex items-center" href="/"><span><i class="fa-solid fa-house"></i></span></a></div>
 		<div class="grow"></div>
 		<ul class="flex">
-			<li class="hover:underline pl-4"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
-			<li class="hover:underline pl-4"><a class="h-full px-3 flex items-center" href="/usr/article/list"><span>LIST</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list"><span>LIST</span></a></li>
+			<c:if test="${rq.loginedMemberId == 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login"><span>LOGIN</span></a></li>
+			</c:if>
+			<c:if test="${rq.loginedMemberId != 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
+			</c:if>
 		</ul>
 	</div>
 	

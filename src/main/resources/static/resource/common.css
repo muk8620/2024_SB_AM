@@ -21,6 +21,13 @@ html > body {
 	color: white;
 }
 
+/* .btns > button, .btns > a { */
+/* 	background-color: rgb(99 102 241); */
+/* 	border: 1px solid rgb(99 102 241); */
+/* 	border-radius: 0.375rem; */
+/* 	padding: 4px; */
+/* } */
+
 .table-box-type > table th, .table-box-type > table td {
 	padding: 10px 0;
 	text-align: center;
