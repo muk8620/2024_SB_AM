@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
-<!-- 테일윈드 -->
+<!-- 테일윈드, daisyUI -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.8/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- 폰트어썸 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -17,7 +18,13 @@
 </head>
 <body>
 	<div class="h-20 flex container mx-auto text-3xl">
-		<div><a class="h-full px-3 flex items-center" href="/"><span><i class="fa-solid fa-house"></i></span></a></div>
+		<div>
+			<a class="h-full px-3 flex items-center" href="/">
+				<span>
+					<i class="fa-solid fa-house"></i>
+				</span>
+			</a>
+		</div>
 		<div class="grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
