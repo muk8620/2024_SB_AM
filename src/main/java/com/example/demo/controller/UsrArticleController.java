@@ -26,32 +26,37 @@ public class UsrArticleController {
 		this.articleService = articleService;
 	}
 	
-	@GetMapping("/usr/article/doWrite")
+	@GetMapping("/usr/article/write")
+	public String write() {
+		
+		return "usr/article/write";
+	}
+	
+	@PostMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body) {
 		
-		if (session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-L", "로그인 후 이용해주세요");
-		}
-		if (Util.isEmpty(title)) {
-			return ResultData.from("F-1", "제목을 입력해주세요");
-		}
-		if (Util.isEmpty(body)) {
-			return ResultData.from("F-2", "내용을 입력해주세요");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		articleService.writeArticle((int) session.getAttribute("loginedMemberId"), title, body);
+		articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		
 		int id = articleService.getLastInsertId();
 		
-		return ResultData.from("S-1", String.format("%d번 게시물을 작성했습니다.", id), articleService.forPrintArticle(id));
+		return Util.jsReplace(String.format("%d번 게시물을 작성했습니다.", id), String.format("detail?id=%d", id));
 	}
 	
 	@GetMapping("/usr/article/list")
-	public String list(Model model) {
-		List<Article> articles = articleService.getArticles();
+	public String list(Model model, int boardId) {
+		String boardName = articleService.getBoardNameById(boardId);
 		
+		List<Article> articles = articleService.getArticles(boardId);
+		
+		int articlesCnt = articleService.getArticlesCnt(boardId);
+		
+		model.addAttribute("boardName", boardName);
+		model.addAttribute("articlesCnt", articlesCnt);
 		model.addAttribute("articles", articles);
+		
 		return "usr/article/list";
 	}
 	

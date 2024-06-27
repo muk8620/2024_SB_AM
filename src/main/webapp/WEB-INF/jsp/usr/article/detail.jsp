@@ -8,26 +8,26 @@
 	<section class="mt-8">
 		<div class="container mx-auto px-3">
 			<div class="table-box-type">
-				<table class="">
+				<table class="table">
 					<tr> 
-						<td class="">번호</td>
-						<td class="">${article.id }</td>
+						<td>번호</td>
+						<td>${article.id }</td>
 					</tr>
 					<tr>
-						<td class="">작성일</td>
-						<td class="">${article.updateDate.substring(5,16)}</td>
+						<td>작성일</td>
+						<td>${article.updateDate.substring(2 , 16)}</td>
 					</tr>
 					<tr>
-						<td class="">작성자</td>
-						<td class="">${article.writerName }</td>
+						<td>작성자</td>
+						<td>${article.writerName }</td>
 					</tr>
 					<tr>
-						<td class="">제목</td>
-						<td class="">${article.title }</td>
+						<td>제목</td>
+						<td>${article.title }</td>
 					</tr>
 					<tr>
-						<td class="">내용</td>
-						<td class="">${article.body }</td>
+						<td>내용</td>
+						<td>${article.body }</td>
 					</tr>
 				</table>
 			</div>
