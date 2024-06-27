@@ -15,8 +15,3 @@ html > body {
 .table-box-type > table {
 	width: 100%;
 }
-
-.table-box-type > table th, .table-box-type > table td {
-	padding: 10px 0;
-	text-align: center;
-}
