@@ -1,5 +1,9 @@
 package com.example.demo.vo;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.example.demo.util.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
 	
 	@Getter
@@ -15,7 +21,9 @@ public class Rq {
 	private HttpSession session;
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
+		
 		session = req.getSession();
+		this.resp = resp;
 		
 		int loginedMemberId = 0;
 		
@@ -24,7 +32,8 @@ public class Rq {
 		}
 		
 		this.loginedMemberId = loginedMemberId;
-		this.resp = resp;
+		
+//		req.setAttribute("rq", this);
 	}
 
 	public void jsPrintReplace(String msg, String uri) {
@@ -44,6 +53,9 @@ public class Rq {
 
 	public void logout() {
 		this.session.removeAttribute("loginedMemberId");
+	}
+	
+	public void init() {
 	}
 	
 }

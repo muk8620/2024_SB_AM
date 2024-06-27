@@ -19,9 +19,11 @@ import jakarta.servlet.http.HttpSession;
 public class UsrMemberController {
 	
 	private MemberService memberService;
+	private Rq rq;
 	
-	public UsrMemberController(MemberService memberService) {
+	public UsrMemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
+		this.rq = rq;
 	}
 	
 	@GetMapping("/usr/member/doJoin")
@@ -68,9 +70,7 @@ public class UsrMemberController {
 	
 	@PostMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogin(String loginId, String loginPw) {
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
@@ -89,9 +89,7 @@ public class UsrMemberController {
 	
 	@GetMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout() {
 		
 		rq.logout();
 		
