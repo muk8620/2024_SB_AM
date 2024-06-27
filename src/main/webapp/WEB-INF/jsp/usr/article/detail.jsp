@@ -9,8 +9,8 @@
 		<div class="container mx-auto px-3">
 			<div class="table-box-type">
 				<table class="table">
-					<tr> 
-						<td>번호</td>
+					<tr class=""> 
+						<td>번호</td> 
 						<td>${article.id }</td>
 					</tr>
 					<tr>

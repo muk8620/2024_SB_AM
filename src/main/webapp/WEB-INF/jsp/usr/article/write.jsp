@@ -32,6 +32,26 @@
 				<div class="table-box-type">
 					<table>
 						<tr>
+							<th>게시판</th>
+							<td>
+								<div class="flex">
+									<div>
+										<label class="flex items-center">
+											<input class="radio radio-sm" type="radio" name="boardId" value="1" checked />
+											&nbsp;&nbsp;공지사항
+										</label>
+									</div>
+									<div class="w-20"></div>
+									<div>
+										<label class="flex items-center">
+											<input class="radio radio-sm" type="radio" name="boardId" value="2" />
+											&nbsp;&nbsp;자유
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<td>제목</td>
 							<td><input class="text-center" type="text" name="title" placeholder="제목을 입력해주세요."/></td>
 						</tr>

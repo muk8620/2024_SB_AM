@@ -20,7 +20,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
-							<tr class="hover:bg-zinc-400 cursor-pointer" onClick="location.href='detail?id=${article.id }'">
+							<tr class="hover:bg-zinc-400 cursor-pointer border-b border-slate-400" onClick="location.href='detail?id=${article.id }'">
 								<td>${article.id }</td>
 								<td>${article.title }</td>
 								<td>${article.writerName }</td>
