@@ -32,8 +32,8 @@ public class ArticleService {
 		return this.articleDao.getBoardNameById(boardId);
 	}
 	
-	public List<Article> getArticles(int boardId) {
-		return articleDao.getArticles(boardId);
+	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int limitFrom, int itemsInAPage) {
+		return articleDao.getArticles(boardId, searchKeywordType, searchKeyword, limitFrom, itemsInAPage);
 	}
 	
 	public void modifyArticle(int id, String title, String body) {
@@ -48,8 +48,8 @@ public class ArticleService {
 		return articleDao.getLastInsertId();
 	}
 
-	public int getArticlesCnt(int boardId) {
-		return articleDao.getArticlesCnt(boardId);
+	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword) {
+		return articleDao.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
 	}
 
 

@@ -33,7 +33,7 @@ public class Rq {
 		
 		this.loginedMemberId = loginedMemberId;
 		
-//		req.setAttribute("rq", this);
+		req.setAttribute("rq", this);
 	}
 
 	public void jsPrintReplace(String msg, String uri) {

@@ -69,6 +69,28 @@ INSERT INTO `member`
         , cellphoneNum = '010-1111-1111'
         , email = 'user1@user1.com';
 
+INSERT INTO `member`
+    SET regDate = NOW()
+        , updateDate = NOW()
+        , loginId = 'user2'
+        , loginPw = 'user2'
+        , `name` = '유저2'
+        , nickname = 'user2'
+        , cellphoneNum = '010-2222-2222'
+        , email = 'user2@user2.com';
+
+INSERT INTO article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+SELECT NOW()
+     , NOW()
+     , FLOOR(RAND() * 3) + 1
+     , FLOOR(RAND() * 2) + 1
+     , CONCAT('제목_', FLOOR(RAND() * 10000))
+     , CONCAT('내용_', FLOOR(RAND() * 10000))
+    FROM article;
+   
 INSERT INTO board
     SET `name` = '공지사항';
 INSERT INTO board
@@ -76,10 +98,11 @@ INSERT INTO board
 INSERT INTO board
     SET `name` = '창작';
 
-SELECT * FROM article;
+SELECT * FROM article
+order;
 SELECT * FROM `member`;
 SELECT * FROM board;
 
-TRUNCATE article;
-TRUNCATE `member`;
-TRUNCATE board;
+-- TRUNCATE article;
+-- TRUNCATE `member`;
+-- TRUNCATE board;
