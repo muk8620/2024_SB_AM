@@ -31,40 +31,34 @@
 			<form action="doModify" method="post" onsubmit="modifyForm_onSubmit(this); return false;">
 				<div class="table-box-type">
 					<input type="hidden" name="id" value="${article.id }" />
-					<table class="border-4 border-indigo-500/100">
-						<tr> 
-							<td class="border border-indigo-500/75">번호</td>
-							<td class="border border-indigo-500/75">${article.id }</td>
+					<table class="table">
+						<tr class="border-t border-slate-400"> 
+							<td >번호</td>
+							<td>${article.id }</td>
 						</tr>
-						<tr>
-							<td class="border border-indigo-500/75">작성일</td>
-							<td class="border border-indigo-500/75">${article.updateDate.substring(5,16)}</td>
+						<tr class="border-t border-slate-400">
+							<td>작성일</td>
+							<td>${article.updateDate.substring(5,16)}</td>
 						</tr>
-						<tr>
-							<td class="border border-indigo-500/75">작성자</td>
-							<td class="border border-indigo-500/75">${article.writerName }</td>
+						<tr class="border-t border-slate-400">
+							<td>작성자</td>
+							<td>${article.writerName }</td>
 						</tr>
-						<tr>
-							<td class="border border-indigo-500/75">제목</td>
-							<td class="border border-indigo-500/75"><input class="text-center" type="text" name="title" placeholder="제목을 입력해주세요." value="${article.title }"/></td>
+						<tr class="border-t border-slate-400">
+							<td>제목</td>
+							<td><input class="input input-bordered w-full max-w-xs" type="text" name="title" placeholder="제목을 입력해주세요." value="${article.title }"/></td>
 						</tr>
-						<tr>
-							<td class="border border-indigo-500/75">내용</td>
-							<td class="border border-indigo-500/75"><textarea name="body">${article.body }</textarea></td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div>
-									<button class="btn btn-outline btn-primary">수정</button>
-								</div>
-							</td>
+						<tr class="border-y border-slate-400">
+							<td>내용</td>
+							<td><textarea class="textarea textarea-bordered textarea-md w-full max-w-xs text-base" name="body">${article.body }</textarea></td>
 						</tr>
 					</table>
 				</div>
+				<div class="container flex mx-auto mt-1">
+					<button class="btn btn-outline btn-primary">수정</button>
+					<button class="btn btn-outline btn-primary ml-2" type="button" onclick="history.back();"> 뒤로가기</button>
+				</div>
 			</form>
-			<div class="container flex justify-end mx-auto mt-1">
-				<button class="btn btn-outline btn-primary ml-2" onclick="history.back();"> 뒤로가기</button>
-			</div>
 		</div>
 	</section>
 <%@ include file="../../common/foot.jsp" %>

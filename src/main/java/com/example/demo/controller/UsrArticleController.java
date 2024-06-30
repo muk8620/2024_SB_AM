@@ -44,7 +44,7 @@ public class UsrArticleController {
 
 	@GetMapping("/usr/article/list")
 	public String list(Model model, int boardId, @RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "all") String searchKeywordType,
+			@RequestParam(defaultValue = "titleAndBody") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 
 		String boardName = articleService.getBoardNameById(boardId);

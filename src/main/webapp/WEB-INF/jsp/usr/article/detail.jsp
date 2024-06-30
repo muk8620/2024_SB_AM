@@ -9,34 +9,34 @@
 		<div class="container mx-auto px-3">
 			<div class="table-box-type">
 				<table class="table">
-					<tr class=""> 
+					<tr class="border-t border-slate-400"> 
 						<td>번호</td> 
 						<td>${article.id }</td>
 					</tr>
-					<tr>
+					<tr class="border-t border-slate-400">
 						<td>작성일</td>
 						<td>${article.updateDate.substring(2 , 16)}</td>
 					</tr>
-					<tr>
+					<tr class="border-t border-slate-400">
 						<td>작성자</td>
 						<td>${article.writerName }</td>
 					</tr>
-					<tr>
+					<tr class="border-t border-slate-400">
 						<td>제목</td>
 						<td>${article.title }</td>
 					</tr>
-					<tr>
+					<tr class="border-y border-slate-400">
 						<td>내용</td>
 						<td>${article.body }</td>
 					</tr>
 				</table>
 			</div>
-			<div class="container flex justify-end mx-auto mt-1">
-				<button class="btn btn-outline btn-primary ml-2" onclick="history.back();"> 뒤로가기</button>
+			<div class="flex mx-auto mt-1">
 				<c:if test="${rq.loginedMemberId == article.memberId}">
-					<a class="btn btn-outline btn-primary ml-2" href="modify?id=${article.id }">수정</a>
-					<a class="btn btn-outline btn-primary ml-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+					<a class="btn btn-outline btn-primary mr-2" href="modify?id=${article.id }">수정</a>
+					<a class="btn btn-outline btn-primary mr-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 				</c:if>
+				<button class="btn btn-outline btn-primary mr-2" onclick="history.back();"> 뒤로가기</button>
 			</div>
 		</div>
 	</section>
