@@ -7,6 +7,15 @@
 <%@ include file="../../common/head.jsp" %>
 	<script>
 		$(function() {
+			
+			if(${point} != 0) {
+				$('#pointBtn').removeClass('btn-outline');
+				$('#pointBtn').addClass('btn-active');
+			}
+			
+			let curPoint = ${point};
+			let totalPoint = ${article.point};
+			
 			$('#pointBtn').click(function(){
 				$.ajax({
 					url : '/usr/article/doPoint', // 요청을 보낼 URL
@@ -14,13 +23,23 @@
 					data : { //서버로 보낼 데이터
 						memberId : ${rq.loginedMemberId},
 						relTypeCode : 'article',
-						relId : ${article.id}
+						relId : ${article.id},
+						point : curPoint
 					},
 					dataType : 'json', // 서버에서 받을 데이터 타입
 					success : function(data) {
-						$('#pointBtn').removeClass('btn-outline');
-						$('#pointBtn').addClass('btn-active');
-						$('#point').html(${article.point + 1});
+						if (data.fail) {
+							curPoint = 0;
+							totalPoint 
+							$('#pointBtn').removeClass('btn-active');
+							$('#pointBtn').addClass('btn-outline');
+							$('#point').html(--totalPoint);
+						} else {
+							curPoint = 1;
+							$('#pointBtn').removeClass('btn-outline');
+							$('#pointBtn').addClass('btn-active');
+							$('#point').html(++totalPoint);
+						}
 					},
 					error : function(xhr, status, error) {
 						console.log(error);

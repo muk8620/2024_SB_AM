@@ -106,9 +106,10 @@ public class UsrArticleController {
 		
 		Article article = articleService.forPrintArticle(id);
 		
-		
+		int point = articleService.getPointByRelIdAndMemberId(rq.getLoginedMemberId(), "article", id);
 		
 		model.addAttribute("article", article);
+		model.addAttribute("point", point);
 
 		return "usr/article/detail";
 	}
@@ -141,7 +142,12 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/doPoint")
 	@ResponseBody
-	public ResultData<String> doPoint(int memberId, String relTypeCode, int relId) {
+	public ResultData<String> doPoint(int memberId, String relTypeCode, int relId, int point) {
+		
+		if (point != 0) {
+			articleService.decreasePoint(memberId, relTypeCode, relId);
+			return ResultData.from("F-1", "추천수 감소");
+		}
 		
 		articleService.increasePoint(memberId, relTypeCode, relId);
 

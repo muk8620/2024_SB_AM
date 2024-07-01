@@ -29,7 +29,7 @@ public interface ArticleDao {
 			with pointTable as
 				(
 					SELECT relId 
-					, SUM(point) point
+						, SUM(point) point
 					FROM likePoint 
 					WHERE relTypeCode = 'article'
 					GROUP BY relId
@@ -63,7 +63,6 @@ public interface ArticleDao {
 				LIMIT #{limitFrom}, #{itemsInAPage}
 			</script>
 			""")
-	
 	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int limitFrom, int itemsInAPage);
 	
 	@Select("""
@@ -164,5 +163,22 @@ public interface ArticleDao {
 					, relId = #{relId}
 			""")
 	public void increasePoint(int memberId, String relTypeCode, int relId);
+	
+	@Select("""
+			SELECT COUNT(point)
+				FROM likePoint
+				WHERE memberId = #{loginedMemberId}
+				AND relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+			""")
+	public int getPointByRelIdAndMemberId(int loginedMemberId, String relTypeCode, int relId);
+	
+	@Delete("""
+			DELETE FROM likePoint
+				WHERE memberId = #{memberId}
+				AND relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+			""")
+	public void decreasePoint(int memberId, String relTypeCode, int relId);
 
 }

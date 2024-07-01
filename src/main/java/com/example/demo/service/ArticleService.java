@@ -60,5 +60,13 @@ public class ArticleService {
 		articleDao.increasePoint(memberId, relTypeCode, relId);
 	}
 
+	public int getPointByRelIdAndMemberId(int loginedMemberId, String relTypeCode, int relId) {
+		return articleDao.getPointByRelIdAndMemberId(loginedMemberId, relTypeCode, relId);
+	}
+
+	public void decreasePoint(int memberId, String relTypeCode, int relId) {
+		articleDao.decreasePoint(memberId, relTypeCode, relId);
+	}
+
 
 }
