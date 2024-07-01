@@ -26,11 +26,22 @@ public interface ArticleDao {
 	
 	@Select("""
 			<script>
+			with pointTable as
+				(
+					SELECT relId 
+					, SUM(point) point
+					FROM likePoint 
+					WHERE relTypeCode = 'article'
+					GROUP BY relId
+				)
 			SELECT a.* 
 					, m.nickname writerName
+					, IFNULL(pt.point, 0) point
 				FROM article a 
 				inner join `member` m
 				on a.memberId = m.id
+				LEFT JOIN pointTable pt
+				ON a.id = pt.relId
 				WHERE A.boardId = #{boardId}
 				<if test="searchKeyword != ''">
 					<choose>
@@ -52,14 +63,26 @@ public interface ArticleDao {
 				LIMIT #{limitFrom}, #{itemsInAPage}
 			</script>
 			""")
+	
 	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int limitFrom, int itemsInAPage);
 	
 	@Select("""
+			with pointTable as
+				(
+					SELECT relId 
+					, SUM(point) point
+					FROM likePoint 
+					WHERE relTypeCode = 'article'
+					GROUP BY relId
+				)
 			SELECT a.* 
 					, m.nickname writerName
+					, IFNULL(pt.point, 0) point
 				FROM article a 
 				inner join `member` m
 				on a.memberId = m.id
+				LEFT JOIN pointTable pt
+				ON a.id = pt.relId
 				WHERE a.id = #{id}
 			""")
 	public Article forPrintArticle(int id);
@@ -133,5 +156,13 @@ public interface ArticleDao {
 				where id = #{id}
 			""")
 	public void increaseView(int id);
+
+	@Insert("""
+			insert into likePoint
+				set memberId = ${memberId}
+					, relTypeCode = #{relTypeCode}
+					, relId = #{relId}
+			""")
+	public void increasePoint(int memberId, String relTypeCode, int relId);
 
 }

@@ -32,6 +32,7 @@
 							<col width="80" />
 							<col width="140" />
 							<col width="80" />
+							<col width="80" />
 						</colgroup>
 						<tr class="bg-gray-300"> 
 							<th></th>
@@ -39,6 +40,7 @@
 							<th class="text-center">작성자</th>
 							<th class="text-center">작성일</th>
 							<th class="text-center">조회수</th>
+							<th class="text-center">추천</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,6 +51,7 @@
 								<td class="text-center">${article.writerName }</td>
 								<td class="text-center">${article.updateDate.substring(5 , 16)}</td>
 								<td class="text-center">${article.views }</td>
+								<td class="text-center">${article.point }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

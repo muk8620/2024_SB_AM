@@ -5,7 +5,7 @@
 <c:set var="pageTitle" value="MAIN" />
 
 <%@ include file="../../common/head.jsp" %>
-
+	
 	<section>
 		<div class="container mx-auto px-3">
 			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore facilis cum aut facere numquam magni itaque. Repellendus quibusdam maiores tenetur autem repellat consectetur minus nobis aut soluta tempora architecto natus?</div>

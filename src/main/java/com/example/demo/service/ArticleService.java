@@ -56,5 +56,9 @@ public class ArticleService {
 		articleDao.increaseView(id);
 	}
 
+	public void increasePoint(int memberId, String relTypeCode, int relId) {
+		articleDao.increasePoint(memberId, relTypeCode, relId);
+	}
+
 
 }

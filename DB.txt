@@ -33,6 +33,14 @@ CREATE TABLE board(
     , `name` TEXT NOT NULL comment '게시판 이름'
 );
 
+CREATE TABLE likePoint(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT
+    , memberId INT UNSIGNED NOT NULL
+    , relTypeCode varchar(20) NOT NULL comment '관련 데이터 타입 코드'
+    , relId int UNSIGNED NOT NULL comment '관련 데이터 고유번호(기본키)'
+    , `point` int UNSIGNED NOT NULL DEFAULT 1
+);
+
 INSERT INTO article
     SET regDate = NOW()
         , updateDate = NOW()
@@ -98,10 +106,54 @@ INSERT INTO board
     SET `name` = '자유';
 INSERT INTO board
     SET `name` = '창작';
+   
+# 2번 회원이 2번 게시물에 좋아요
+INSERT INTO likePoint 
+	SET memberId = 2
+		, relTypeCode = 'article'
+		, relId = 2;
+	
+# 2번 회원이 3번 게시물에 좋아요
+INSERT INTO likePoint 
+	SET memberId = 2
+		, relTypeCode = 'article'
+		, relId = 3;
+	
+# 3번 회원이 1번 게시물에 좋아요
+INSERT INTO likePoint 
+	SET memberId = 3
+		, relTypeCode = 'article'
+		, relId = 1;
+	
+# 3번 회원이 2번 게시물에 좋아요
+INSERT INTO likePoint 
+	SET memberId = 3
+		, relTypeCode = 'article'
+		, relId = 2;
 
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
+SELECT * FROM likePoint;
+
+-- with pointTable as
+-- (
+-- 	SELECT relId 
+-- 	, SUM(point) point
+-- 	FROM likePoint 
+-- 	WHERE relTypeCode = 'article'
+-- 	GROUP BY relId
+-- )
+-- 
+-- SELECT a.* 
+-- 		, m.nickname writerName
+-- 		, IFNULL(pt.point, 0) point
+-- 	FROM article a 
+-- 	inner join `member` m
+-- 	on a.memberId = m.id
+-- 	LEFT JOIN pointTable pt
+-- 	ON a.id = pt.relId
+-- 	ORDER BY a.id DESC;
 
 -- TRUNCATE article;
 -- TRUNCATE `member`;

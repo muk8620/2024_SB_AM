@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.ArticleService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.Cookie;
@@ -99,12 +100,14 @@ public class UsrArticleController {
 		if (!isViewed) {
 			articleService.increaseView(id);
 			Cookie cookie = new Cookie("viewedArticle_" + id, "true");
-			cookie.setMaxAge(10);
+			cookie.setMaxAge(5);
 			resp.addCookie(cookie);
 		}
 		
 		Article article = articleService.forPrintArticle(id);
-
+		
+		
+		
 		model.addAttribute("article", article);
 
 		return "usr/article/detail";
@@ -134,5 +137,14 @@ public class UsrArticleController {
 		articleService.deleteArticle(id);
 
 		return Util.jsReplace(String.format("%d번 게시물을 삭제햇습니다.", id), "list");
+	}
+	
+	@GetMapping("/usr/article/doPoint")
+	@ResponseBody
+	public ResultData<String> doPoint(int memberId, String relTypeCode, int relId) {
+		
+		articleService.increasePoint(memberId, relTypeCode, relId);
+
+		return ResultData.from("S-1", "추천수 증가 성공");
 	}
 }
