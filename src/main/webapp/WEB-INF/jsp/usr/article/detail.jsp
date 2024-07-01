@@ -13,6 +13,10 @@
 						<td>번호</td> 
 						<td>${article.id }</td>
 					</tr>
+					<tr class="border-t border-slate-400"> 
+						<td>조회수</td> 
+						<td>${article.views }</td>
+					</tr>
 					<tr class="border-t border-slate-400">
 						<td>작성일</td>
 						<td>${article.updateDate.substring(2 , 16)}</td>

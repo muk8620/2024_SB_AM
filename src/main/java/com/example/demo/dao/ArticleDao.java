@@ -127,4 +127,11 @@ public interface ArticleDao {
 			""")
 	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword);
 
+	@Update("""
+			UPDATE article 
+				SET views = views + 1
+				where id = #{id}
+			""")
+	public void increaseView(int id);
+
 }

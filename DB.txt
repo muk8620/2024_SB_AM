@@ -7,7 +7,8 @@ CREATE TABLE article(
     , regDate DATETIME NOT NULL
     , updateDate DATETIME NOT NULL
     , memberId INT UNSIGNED NOT NULL
-    , boardId int UNSIGNED NOT NULL 
+    , boardId int UNSIGNED NOT NULL
+    , views int UNSIGNED NOT NULL DEFAULT 0
     , title VARCHAR(100) NOT NULL
     , `body` TEXT NOT NULL
 );
@@ -68,7 +69,7 @@ INSERT INTO `member`
         , nickname = 'user1'
         , cellphoneNum = '010-1111-1111'
         , email = 'user1@user1.com';
-
+       
 INSERT INTO `member`
     SET regDate = NOW()
         , updateDate = NOW()
@@ -78,7 +79,7 @@ INSERT INTO `member`
         , nickname = 'user2'
         , cellphoneNum = '010-2222-2222'
         , email = 'user2@user2.com';
-
+       
 INSERT INTO article
 (
     regDate, updateDate, memberId, boardId, title, `body`
@@ -90,7 +91,7 @@ SELECT NOW()
      , CONCAT('제목_', FLOOR(RAND() * 10000))
      , CONCAT('내용_', FLOOR(RAND() * 10000))
     FROM article;
-   
+
 INSERT INTO board
     SET `name` = '공지사항';
 INSERT INTO board
@@ -98,8 +99,7 @@ INSERT INTO board
 INSERT INTO board
     SET `name` = '창작';
 
-SELECT * FROM article
-order;
+SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
 

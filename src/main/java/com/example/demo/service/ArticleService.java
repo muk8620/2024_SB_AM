@@ -52,5 +52,9 @@ public class ArticleService {
 		return articleDao.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
 	}
 
+	public void increaseView(int id) {
+		articleDao.increaseView(id);
+	}
+
 
 }

@@ -4,9 +4,6 @@
 
 <c:set var="pageTitle" value="${boardName } 게시판" />
 <%@ include file="../../common/head.jsp" %>
-	<script>
-		console.log('${param.searchKeywordType }');
-	</script>
 	<section class="my-4">
 		<div class="container mx-auto px-3">
 			<div class="mb-2 flex justify-between items-end">
@@ -21,7 +18,6 @@
 							<option value="title">제목</option>
 							<option value="body">내용</option>
 						</select>
-	<!-- 					색깔 바꿔야됨 -->
 						<input class="input input-bordered input-sm" type="text" name="searchKeyword" value="${param.searchKeyword }" placeholder="검색어를 입력해주세요."/>	
 						<button class="hidden">검색</button>
 					</div>				
@@ -30,20 +26,29 @@
 			<div class="table-box-type">
 				<table class="table">
 					<thead class="border-y-2 border-slate-600">
+						<colgroup>
+							<col width="80" />
+							<col width="" />
+							<col width="80" />
+							<col width="140" />
+							<col width="80" />
+						</colgroup>
 						<tr class="bg-gray-300"> 
 							<th></th>
 							<th class="text-center">제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
+							<th class="text-center">작성자</th>
+							<th class="text-center">작성일</th>
+							<th class="text-center">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
 							<tr class="hover:bg-gray-200 cursor-pointer border-b border-slate-400" onClick="location.href='detail?id=${article.id }'">
-								<td class="w-20">${article.id }</td>
+								<td class="">${article.id }</td>
 								<td class="text-center">${article.title }</td>
-								<td class="w-40">${article.writerName }</td>
-								<td class="w-36">${article.updateDate.substring(5 , 16)}</td>
+								<td class="text-center">${article.writerName }</td>
+								<td class="text-center">${article.updateDate.substring(5 , 16)}</td>
+								<td class="text-center">${article.views }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -63,7 +68,7 @@
 					<a class="join-item btn btn-sm ${from == 1 ? 'btn-disabled' : '' }" href="?page=${from - 1 }&${baseUri }"><i class="fa-solid fa-caret-left"></i></a>
 				
 					<c:forEach begin="${from }" end="${end }" var="i">
-						<a class="join-item btn btn-sm ${cPage == i ? 'btn-active' : '' }" href="?page=${i }&${baseUri }">${i }</a>
+						<a class="join-item btn btn-sm ${page == i ? 'btn-active' : '' }" href="?page=${i }&${baseUri }">${i }</a>
 					</c:forEach>
 					
 					<a class="join-item btn btn-sm ${end == totalPageCnt ? 'btn-disabled' : '' }" href="?page=${end + 1 }&${baseUri }"><i class="fa-solid fa-caret-right"></i></a>
