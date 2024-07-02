@@ -13,6 +13,16 @@ CREATE TABLE article(
     , `body` TEXT NOT NULL
 );
 
+CREATE TABLE reply(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT
+    , regDate DATETIME NOT NULL
+    , updateDate DATETIME NOT NULL
+    , memberId INT UNSIGNED NOT NULL
+    , relTypeCode VARCHAR(20) NOT NULL
+    , relId INT UNSIGNED NOT NULL
+    , `body` TEXT NOT NULL
+);
+
 CREATE TABLE `member`(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT
     , regDate DATETIME NOT NULL
@@ -56,6 +66,42 @@ INSERT INTO article
         , boardId = 1
         , title = '공지사항1'
         , `body` = '공지사항1';
+       
+# 2번 회원이 1번 글에 댓글
+INSERT INTO reply
+    SET regDate = NOW()
+        , updateDate = NOW()
+        , memberId = 2
+        , relTypeCode = 'article'
+        , relId = 1
+        , `body` = '댓글1';
+
+# 3번 회원이 1번 글에 댓글
+INSERT INTO reply
+    SET regDate = NOW()
+        , updateDate = NOW()
+        , memberId = 3
+        , relTypeCode = 'article'
+        , relId = 1
+        , `body` = '댓글2';
+
+# 2번 회원이 3번 글에 댓글
+INSERT INTO reply
+    SET regDate = NOW()
+        , updateDate = NOW()
+        , memberId = 2
+        , relTypeCode = 'article'
+        , relId = 3
+        , `body` = '댓글3';
+
+# 3번 회원이 2번 글에 댓글
+INSERT INTO reply
+    SET regDate = NOW()
+        , updateDate = NOW()
+        , memberId = 3
+        , relTypeCode = 'article'
+        , relId = 2
+        , `body` = '댓글4';
         
 INSERT INTO `member`
     SET regDate = NOW()
@@ -132,29 +178,25 @@ INSERT INTO likePoint
 		, relId = 2;
 
 SELECT * FROM article;
+SELECT * FROM reply;
 SELECT * FROM `member`;
 SELECT * FROM board;
 SELECT * FROM likePoint;
 
--- with pointTable as
--- (
--- 	SELECT relId 
--- 	, SUM(point) point
--- 	FROM likePoint 
--- 	WHERE relTypeCode = 'article'
--- 	GROUP BY relId
--- )
--- 
 -- SELECT a.* 
 -- 		, m.nickname writerName
--- 		, IFNULL(pt.point, 0) point
+-- 		, IFNULL(SUM(lp.point) , 0) point
 -- 	FROM article a 
--- 	inner join `member` m
+-- 	INNER join `member` m
 -- 	on a.memberId = m.id
--- 	LEFT JOIN pointTable pt
--- 	ON a.id = pt.relId
+-- 	LEFT JOIN likePoint lp
+-- 	ON a.id = lp.relId
+-- 	AND relTypeCode = 'article'
+-- 	GROUP BY a.id
 -- 	ORDER BY a.id DESC;
 
 -- TRUNCATE article;
+-- TRUNCATE reply;
 -- TRUNCATE `member`;
 -- TRUNCATE board;
+-- TRUNCATE likePoint;

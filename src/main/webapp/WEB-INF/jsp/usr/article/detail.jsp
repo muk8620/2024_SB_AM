@@ -91,12 +91,29 @@
 					</c:if>
 				</table>
 			</div>
+			
+			<label class="form-control">
+			  <textarea class="textarea textarea-bordered h-24"></textarea>
+			</label>
+			
+			<div>
+				<c:forEach var="reply" items="${replies }">
+					<label class="form-control">
+					  <div class="label">
+					    <span class="label-text">${reply.writerName }</span>
+					    <span class="label-text-alt">${reply.regDate.substring(5 , 16) }</span>
+					  </div>
+					  <textarea class="textarea textarea-bordered h-24">${reply.body }</textarea>
+					</label>
+				</c:forEach>
+			</div>
+			
 			<div class="flex mx-auto mt-1">
 				<c:if test="${rq.loginedMemberId == article.memberId}">
 					<a class="btn btn-outline btn-primary mr-2" href="modify?id=${article.id }">수정</a>
 					<a class="btn btn-outline btn-primary mr-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 				</c:if>
-				<button class="btn btn-outline btn-primary mr-2" onclick="history.back();"> 뒤로가기</button>
+				<a class="btn btn-outline btn-primary mr-2" href="list?boardId=${article.boardId }">목록</a>
 			</div>
 		</div>
 	</section>

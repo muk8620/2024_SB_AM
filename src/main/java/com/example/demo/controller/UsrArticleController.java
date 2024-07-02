@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -23,10 +25,12 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UsrArticleController {
 
 	private ArticleService articleService;
+	private ReplyService replyService;
 	private Rq rq;
 
-	public UsrArticleController(ArticleService articleService, Rq rq) {
+	public UsrArticleController(ArticleService articleService, ReplyService replyService, Rq rq) {
 		this.articleService = articleService;
+		this.replyService = replyService;
 		this.rq = rq;
 	}
 
@@ -108,8 +112,11 @@ public class UsrArticleController {
 		
 		int point = articleService.getPointByRelIdAndMemberId(rq.getLoginedMemberId(), "article", id);
 		
+		List<Reply> replies = replyService.getReplies("article", id);
+		
 		model.addAttribute("article", article);
 		model.addAttribute("point", point);
+		model.addAttribute("replies", replies);
 
 		return "usr/article/detail";
 	}

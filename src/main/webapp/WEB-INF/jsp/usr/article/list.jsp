@@ -45,13 +45,13 @@
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
-							<tr class="hover:bg-gray-200 cursor-pointer border-b border-slate-400" onClick="location.href='detail?id=${article.id }'">
-								<td class="">${article.id }</td>
-								<td class="text-center">${article.title }</td>
-								<td class="text-center">${article.writerName }</td>
-								<td class="text-center">${article.updateDate.substring(5 , 16)}</td>
-								<td class="text-center">${article.views }</td>
-								<td class="text-center">${article.point }</td>
+							<tr class="hover:bg-gray-200 cursor-pointer border-b border-slate-400 text-center" onClick="location.href='detail?id=${article.id }'">
+								<td>${article.id }</td>
+								<td>${article.title }</td>
+								<td>${article.writerName }</td>
+								<td>${article.updateDate.substring(5 , 16)}</td>
+								<td>${article.views }</td>
+								<td>${article.point }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

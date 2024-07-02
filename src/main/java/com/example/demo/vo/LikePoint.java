@@ -7,15 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
+public class LikePoint {
 	private int id;
-	private String regDate;
-	private String updateDate;
-	private String title;
-	private String body;
 	private int memberId;
-	private int boardId;
-	private String writerName;
-	private int views;
+	private String relTypeCode;
+	private int relId;
 	private int point;
 }
