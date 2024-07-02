@@ -6,47 +6,52 @@
 
 <%@ include file="../../common/head.jsp" %>
 	<script>
-		$(function() {
+		$(document).ready(function(){
+			getLikePoint();
 			
-			if(${point} != 0) {
-				$('#pointBtn').removeClass('btn-outline');
-				$('#pointBtn').addClass('btn-active');
-			}
-			
-			let curPoint = ${point};
-			let totalPoint = ${article.point};
-			
-			$('#pointBtn').click(function(){
-				$.ajax({
-					url : '/usr/article/doPoint', // 요청을 보낼 URL
-					type : 'GET', // http 메서드
-					data : { //서버로 보낼 데이터
-						memberId : ${rq.loginedMemberId},
-						relTypeCode : 'article',
-						relId : ${article.id},
-						point : curPoint
-					},
-					dataType : 'json', // 서버에서 받을 데이터 타입
-					success : function(data) {
-						if (data.fail) {
-							curPoint = 0;
-							totalPoint 
-							$('#pointBtn').removeClass('btn-active');
-							$('#pointBtn').addClass('btn-outline');
-							$('#point').html(--totalPoint);
-						} else {
-							curPoint = 1;
-							$('#pointBtn').removeClass('btn-outline');
-							$('#pointBtn').addClass('btn-active');
-							$('#point').html(++totalPoint);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(error);
-					}
-				})
+			$('#likePointBtn').click(async function(){
+				let liked = $('#likePointBtn').hasClass('btn-outline') === false;
+				try{
+					await $.ajax({
+						url : '../likePoint/doLikePoint',
+						type : 'GET',
+						data : {
+							relTypeCode : 'article',
+							relId : ${article.id },
+							liked : liked
+						},
+					})
+					
+					let totalCnt = await getLikePoint();
+					
+					$('#likePointCnt').html(totalCnt.data);
+				} catch (error) {
+					console.log('Error : ', error);
+				}
 			})
 		})
+		
+		const getLikePoint = async function(){
+			return $.ajax({
+				url : '../likePoint/getLikePoint',
+				type : 'GET',
+				data : {
+					relTypeCode : 'article',
+					relId : ${article.id }
+				},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						$('#likePointBtn').removeClass('btn-outline');
+					} else {
+						$('#likePointBtn').addClass('btn-outline');
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
+		}
 	</script>
 	<section class="mt-8">
 		<div class="container mx-auto px-3">
@@ -62,7 +67,7 @@
 					</tr>
 					<tr class="border-t border-slate-400"> 
 						<td>추천</td> 
-						<td id="point">${article.point }</td>
+						<td id="likePointCnt">${article.likePoint }</td>
 					</tr>
 					<tr class="border-t border-slate-400">
 						<td>작성일</td>
@@ -84,7 +89,7 @@
 						<tr class="border-y border-slate-400">
 							<td colspan="2">
 								<div class="flex justify-center">
-									<button class="btn btn-outline btn-primary" id="pointBtn">추천</button>
+									<button class="btn btn-outline btn-primary" id="likePointBtn">추천</button>
 								</div>
 							</td>
 						</tr>

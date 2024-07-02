@@ -27,9 +27,9 @@ public class UsrLikePointController {
 	
 	@GetMapping("/usr/likePoint/doLikePoint")
 	@ResponseBody
-	public String doLikePoint(String relTypeCode, int relId, boolean likePointBtn) {
+	public String doLikePoint(String relTypeCode, int relId, boolean liked) {
 		
-		if (likePointBtn) {
+		if (liked) {
 			likePointService.deleteLikePoint(rq.getLoginedMemberId(), relTypeCode, relId);
 			return "좋아요 취소";
 		}

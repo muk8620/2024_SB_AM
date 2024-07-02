@@ -14,7 +14,6 @@ import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Reply;
-import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.Cookie;
@@ -110,12 +109,9 @@ public class UsrArticleController {
 		
 		Article article = articleService.forPrintArticle(id);
 		
-		int point = articleService.getPointByRelIdAndMemberId(rq.getLoginedMemberId(), "article", id);
-		
 		List<Reply> replies = replyService.getReplies("article", id);
 		
 		model.addAttribute("article", article);
-		model.addAttribute("point", point);
 		model.addAttribute("replies", replies);
 
 		return "usr/article/detail";
@@ -145,19 +141,5 @@ public class UsrArticleController {
 		articleService.deleteArticle(id);
 
 		return Util.jsReplace(String.format("%d번 게시물을 삭제햇습니다.", id), "list");
-	}
-	
-	@GetMapping("/usr/article/doPoint")
-	@ResponseBody
-	public ResultData<String> doPoint(int memberId, String relTypeCode, int relId, int point) {
-		
-		if (point != 0) {
-			articleService.decreasePoint(memberId, relTypeCode, relId);
-			return ResultData.from("F-1", "추천수 감소");
-		}
-		
-		articleService.increasePoint(memberId, relTypeCode, relId);
-
-		return ResultData.from("S-1", "추천수 증가 성공");
 	}
 }

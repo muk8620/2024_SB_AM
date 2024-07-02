@@ -25,15 +25,15 @@
 			</div>
 			<div class="table-box-type">
 				<table class="table">
+					<colgroup>
+						<col width="80" />
+						<col width="" />
+						<col width="80" />
+						<col width="140" />
+						<col width="80" />
+						<col width="80" />
+					</colgroup>
 					<thead class="border-y-2 border-slate-600">
-						<colgroup>
-							<col width="80" />
-							<col width="" />
-							<col width="80" />
-							<col width="140" />
-							<col width="80" />
-							<col width="80" />
-						</colgroup>
 						<tr class="bg-gray-300"> 
 							<th></th>
 							<th class="text-center">제목</th>
@@ -51,7 +51,7 @@
 								<td>${article.writerName }</td>
 								<td>${article.updateDate.substring(5 , 16)}</td>
 								<td>${article.views }</td>
-								<td>${article.point }</td>
+								<td>${article.likePoint }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

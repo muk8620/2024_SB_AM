@@ -55,18 +55,4 @@ public class ArticleService {
 	public void increaseView(int id) {
 		articleDao.increaseView(id);
 	}
-
-	public void increasePoint(int memberId, String relTypeCode, int relId) {
-		articleDao.increasePoint(memberId, relTypeCode, relId);
-	}
-
-	public int getPointByRelIdAndMemberId(int loginedMemberId, String relTypeCode, int relId) {
-		return articleDao.getPointByRelIdAndMemberId(loginedMemberId, relTypeCode, relId);
-	}
-
-	public void decreasePoint(int memberId, String relTypeCode, int relId) {
-		articleDao.decreasePoint(memberId, relTypeCode, relId);
-	}
-
-
 }

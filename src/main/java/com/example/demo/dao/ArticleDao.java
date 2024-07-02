@@ -28,7 +28,7 @@ public interface ArticleDao {
 			<script>
 			SELECT a.* 
 					, m.nickname writerName
-					, IFNULL(SUM(lp.point) , 0) point
+					, IFNULL(SUM(lp.point) , 0) likePoint
 				FROM article a 
 				INNER join `member` m
 				on a.memberId = m.id
@@ -62,7 +62,7 @@ public interface ArticleDao {
 	@Select("""
 			SELECT a.* 
 					, m.nickname writerName
-					, IFNULL(SUM(lp.point) , 0) point
+					, IFNULL(SUM(lp.point) , 0) likePoint
 				FROM article a 
 				inner join `member` m
 				on a.memberId = m.id
@@ -143,30 +143,5 @@ public interface ArticleDao {
 				where id = #{id}
 			""")
 	public void increaseView(int id);
-
-	@Insert("""
-			insert into likePoint
-				set memberId = ${memberId}
-					, relTypeCode = #{relTypeCode}
-					, relId = #{relId}
-			""")
-	public void increasePoint(int memberId, String relTypeCode, int relId);
-	
-	@Select("""
-			SELECT COUNT(point)
-				FROM likePoint
-				WHERE memberId = #{loginedMemberId}
-				AND relTypeCode = #{relTypeCode}
-				AND relId = #{relId}
-			""")
-	public int getPointByRelIdAndMemberId(int loginedMemberId, String relTypeCode, int relId);
-	
-	@Delete("""
-			DELETE FROM likePoint
-				WHERE memberId = #{memberId}
-				AND relTypeCode = #{relTypeCode}
-				AND relId = #{relId}
-			""")
-	public void decreasePoint(int memberId, String relTypeCode, int relId);
 
 }
