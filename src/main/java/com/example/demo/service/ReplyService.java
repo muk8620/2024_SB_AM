@@ -16,19 +16,27 @@ public class ReplyService {
 		this.replyDao = replyDao;
 	}
 	
-	public List<Reply> getReplies(String relTypeCode, int relId) {
-		return replyDao.getReplies(relTypeCode, relId);
-	}
-	
 	public void writeReply(int loginedMemberId, String relTypeCode, int relId, String body) {
 		this.replyDao.writeReply(loginedMemberId, relTypeCode, relId, body);
+	}
+	
+	public List<Reply> getReplies(String relTypeCode, int relId) {
+		return replyDao.getReplies(relTypeCode, relId);
 	}
 
 	public int getLastInsertId() {
 		return this.replyDao.getLastInsertId();
 	}
 
-	public void deleteArticle(int id) {
-		replyDao.deleteArticle(id);
+	public void deleteReply(int id) {
+		replyDao.deleteReply(id);
+	}
+	
+	public Reply getReplyById(int id) {
+		return this.replyDao.getReplyById(id);
+	}
+
+	public void modifyReply(int id, String body) {
+		this.replyDao.modifyReply(id, body);
 	}
 }
