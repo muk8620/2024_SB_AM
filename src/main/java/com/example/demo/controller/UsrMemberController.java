@@ -91,4 +91,16 @@ public class UsrMemberController {
 		
 		return Util.jsReplace("정상적으로 로그아웃 되었습니다.", "/");
 	}
+	
+	@GetMapping("/usr/member/getNickname")
+	@ResponseBody
+	public String getNickname() {
+		if (rq.getLoginedMemberId() == 0) {
+			return "로그인 정보 없음";
+		}
+		
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+		
+		return member.getNickname();
+	}
 }

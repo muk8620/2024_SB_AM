@@ -16,4 +16,8 @@ public class Reply {
 	private String relTypeCode;
 	private int relId;
 	private String body;
+	
+	public String getForPrintBody() {
+		return this.body.replaceAll("\n", "<br/>");
+	}
 }
