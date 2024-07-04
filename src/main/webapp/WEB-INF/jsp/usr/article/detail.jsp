@@ -6,7 +6,15 @@
 
 <%@ include file="../../common/head.jsp" %>
 	<script>
-		$(document).ready(function(){
+		$(function(){
+			
+			const Editor = toastui.Editor;
+			
+			const viewer = new toastui.Editor.factory({
+				el: document.querySelector('#toast-ui-viewer'),
+				viewer: true,
+				initialValue: `${article.getBody() }`
+			});
 			
 			getLikePoint();
 			getNickname();
@@ -27,11 +35,15 @@
 					
 					let totalCnt = await getLikePoint();
 					
-					$('#likePointCnt').html(totalCnt.data);
+					$('.likePointCnt').each(function(index, item) {
+						$(item).html('추천 ' + totalCnt.data);
+					})
 				} catch (error) {
 					console.log('Error : ', error);
 				}
 			})
+			
+			
 		})
 		
 		const getLikePoint = async function(){
@@ -127,48 +139,66 @@
 		}
 		
 	</script>
+	
 	<section class="mt-8">
 		<div class="container mx-auto px-3">
-			<div class="table-box-type">
-				<table class="table">
-					<tr class="border-t border-slate-400"> 
-						<td>번호</td> 
-						<td>${article.id }</td>
-					</tr>
-					<tr class="border-t border-slate-400"> 
-						<td>조회수</td> 
-						<td>${article.views }</td>
-					</tr>
-					<tr class="border-t border-slate-400">
-						<td>작성일</td>
-						<td>${article.updateDate.substring(2 , 16)}</td>
-					</tr>
-					<tr class="border-t border-slate-400">
-						<td>작성자</td>
-						<td>${article.writerName }</td>
-					</tr>
-					<tr class="border-t border-slate-400">
-						<td>제목</td>
-						<td>${article.title }</td>
-					</tr>
-					<tr class="border-y border-slate-400">
-						<td>내용</td>
-						<td>${article.getForPrintBody() }</td>
-					</tr>
-					<tr class="border-y border-slate-400">
-						<td colspan="2">
-							<div class="flex justify-center">
-								<button class="btn btn-outline btn-primary ${rq.loginedMemberId == 0 ? 'btn-disabled' : '' }" id="likePointBtn">
-									<i class="fa-solid fa-thumbs-up fa-xl"></i>
-									<div class="badge" id="likePointCnt">${article.likePoint }</div>
-								</button>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<div class="py-2">
+				<div class="text-xl">${article.title }</div>
+				<div>
+					${article.writerName }
+					<i class="fa-solid ${article.memberId == 1 ? 'fa-user-secret' : 'fa-user'}"></i>
+				</div>
+				<div class="text-xs text-gray-400 mt-1">${article.updateDate.substring(2 , 16)}</div>
+				<div class="flex">
+					<div class="text-sm text-gray-400">조회수 ${article.views }</div>
+					<div class="w-2"></div>
+					<div class="likePointCnt text-sm text-gray-400">추천 ${article.likePoint }</div>
+				</div>
 			</div>
+			<div id="toast-ui-viewer"></div>
+			<div class="flex justify-center">
+				<button class="btn btn-outline btn-primary ${rq.loginedMemberId == 0 ? 'btn-disabled' : '' }" id="likePointBtn">
+					<i class="fa-solid fa-thumbs-up fa-xl"></i>
+					<div class="likePointCnt badge">${article.likePoint }</div>
+				</button>
+			</div>
+	
+<!-- 			<div class="table-box-type"> -->
+<!-- 				<table class="table"> -->
+<!-- 					<tr class="border-t border-slate-400">  -->
+<!-- 						<td>조회수</td>  -->
+<%-- 						<td>${article.views }</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr class="border-t border-slate-400"> -->
+<!-- 						<td>작성일</td> -->
+<%-- 						<td>${article.updateDate.substring(2 , 16)}</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr class="border-t border-slate-400"> -->
+<!-- 						<td>작성자</td> -->
+<%-- 						<td>${article.writerName }</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr class="border-t border-slate-400"> -->
+<!-- 						<td>제목</td> -->
+<%-- 						<td>${article.title }</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr class="border-y border-slate-400"> -->
+<!-- 						<td>내용</td> -->
+<%-- 						<td>${article.getForPrintBody() }</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr class="border-y border-slate-400"> -->
+<!-- 						<td colspan="2"> -->
+<!-- 							<div class="flex justify-center"> -->
+<%-- 								<button class="btn btn-outline btn-primary ${rq.loginedMemberId == 0 ? 'btn-disabled' : '' }" id="likePointBtn"> --%>
+<!-- 									<i class="fa-solid fa-thumbs-up fa-xl"></i> -->
+<%-- 									<div class="badge" id="likePointCnt">${article.likePoint }</div> --%>
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 			</div> -->
 			
-			<div class="flex mx-auto mt-1">
+			<div class="flex mx-auto mt-4">
 				<c:if test="${rq.loginedMemberId == article.memberId}">
 					<a class="btn btn-outline btn-primary mr-2" href="modify?id=${article.id }">수정</a>
 					<a class="btn btn-outline btn-primary mr-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>

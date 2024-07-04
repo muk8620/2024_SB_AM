@@ -24,3 +24,9 @@ html > body {
 .table-box-type > table {
 	width: 100%;
 }
+
+.toastui-editor-contents p {
+    font-family: 'TTLaundryGothicB';
+	text-underline-position: under;
+    font-size: 16px; /* 기본 글꼴 크기 */
+}

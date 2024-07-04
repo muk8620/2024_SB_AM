@@ -24,6 +24,45 @@
 	    
 	    form.submit();
 	  }
+	  
+	  const { Editor } = toastui;
+
+	  $(function(){
+	    $('.toast-ui-editor').each(function(index, item) {
+	      const items = $(item);
+
+	      const editor = new Editor({
+	        el: item,
+	        height: '600px',
+	        initialEditType: 'markdown',
+	        previewStyle: 'tab',
+	      });
+
+	      items.data('data-toast-editor', editor);
+	    });
+	  });
+
+	  function writeForm_onSubmit(form){
+	    const editorData = $(form).find('.toast-ui-editor').data('data-toast-editor');
+	    const markdown = editorData.getMarkdown().trim();
+	    
+	    let title = form.title.value.trim();
+	    if (title.length == 0) {
+	      alert('제목을 입력해주세요.');
+	      form.title.focus();
+	      return;
+	    }
+
+	    if(markdown.length == 0){
+	      alert('내용을 입력해주세요');
+	      editorData.focus();
+	      return;
+	    }
+
+	    form.body.value = markdown;
+	    
+	    form.submit();
+	  }
 	</script>
 	
 	<section class="mt-8">
