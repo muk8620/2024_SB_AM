@@ -30,6 +30,12 @@ public class MemberService {
 		return memberDao.getLastInsertId();
 	}
 
+	public void memberModify(int loginedMemberId, String name, String nickname, String cellphoneNum, String email) {
+		this.memberDao.memberModify(loginedMemberId, name, nickname, cellphoneNum, email);
+	}
 
+	public void doPasswordModify(int loginedMemberId, String loginPw) {
+		this.memberDao.doPasswordModify(loginedMemberId, loginPw);
+	}
 
 }

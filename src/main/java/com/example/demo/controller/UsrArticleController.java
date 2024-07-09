@@ -137,9 +137,10 @@ public class UsrArticleController {
 
 	@GetMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(int id) {
+	public String doDelete(int id, int boardId) {
+
 		articleService.deleteArticle(id);
 
-		return Util.jsReplace(String.format("%d번 게시물을 삭제햇습니다.", id), "list");
+		return Util.jsReplace(String.format("%d번 게시물을 삭제했습니다", id), String.format("list?boardId=%d", boardId));
 	}
 }

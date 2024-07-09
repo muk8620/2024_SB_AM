@@ -163,45 +163,10 @@
 				</button>
 			</div>
 	
-<!-- 			<div class="table-box-type"> -->
-<!-- 				<table class="table"> -->
-<!-- 					<tr class="border-t border-slate-400">  -->
-<!-- 						<td>조회수</td>  -->
-<%-- 						<td>${article.views }</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr class="border-t border-slate-400"> -->
-<!-- 						<td>작성일</td> -->
-<%-- 						<td>${article.updateDate.substring(2 , 16)}</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr class="border-t border-slate-400"> -->
-<!-- 						<td>작성자</td> -->
-<%-- 						<td>${article.writerName }</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr class="border-t border-slate-400"> -->
-<!-- 						<td>제목</td> -->
-<%-- 						<td>${article.title }</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr class="border-y border-slate-400"> -->
-<!-- 						<td>내용</td> -->
-<%-- 						<td>${article.getForPrintBody() }</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr class="border-y border-slate-400"> -->
-<!-- 						<td colspan="2"> -->
-<!-- 							<div class="flex justify-center"> -->
-<%-- 								<button class="btn btn-outline btn-primary ${rq.loginedMemberId == 0 ? 'btn-disabled' : '' }" id="likePointBtn"> --%>
-<!-- 									<i class="fa-solid fa-thumbs-up fa-xl"></i> -->
-<%-- 									<div class="badge" id="likePointCnt">${article.likePoint }</div> --%>
-<!-- 								</button> -->
-<!-- 							</div> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<!-- 				</table> -->
-<!-- 			</div> -->
-			
 			<div class="flex mx-auto mt-4">
 				<c:if test="${rq.loginedMemberId == article.memberId}">
 					<a class="btn btn-outline btn-primary mr-2" href="modify?id=${article.id }">수정</a>
-					<a class="btn btn-outline btn-primary mr-2" href="doDelete?id=${article.id }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+					<a class="btn btn-outline btn-primary mr-2" href="doDelete?id=${article.id }&boardId=${article.boardId }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 				</c:if>
 				<a class="btn btn-outline btn-primary mr-2" href="list?boardId=${article.boardId }">목록</a>
 			</div>

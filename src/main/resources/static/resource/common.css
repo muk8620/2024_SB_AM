@@ -7,9 +7,13 @@
     font-style: normal;
 }
 
-html > body {
+html > body, .ProseMirror > div, .toastui-editor-contents > div {
 	font-family: 'TTLaundryGothicB';
 	text-underline-position: under;
+}
+
+.ProseMirror > div, .toastui-editor-contents > div {
+	font-size: 1.25rem;
 }
 
 .border-bottom-line {
@@ -25,8 +29,25 @@ html > body {
 	width: 100%;
 }
 
-.toastui-editor-contents p {
-    font-family: 'TTLaundryGothicB';
-	text-underline-position: under;
-    font-size: 16px; /* 기본 글꼴 크기 */
+.modalLayer-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, .5);
+	display: none;
+}
+
+.modalLayer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	background-color: #afafaf;
+	color: white;
+	width: 500px;
+	height: 500px;
+	border: 5px solid red;
+	display: none;
 }

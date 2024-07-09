@@ -107,7 +107,7 @@ INSERT INTO `member`
     SET regDate = NOW()
         , updateDate = NOW()
         , loginId = 'admin'
-        , loginPw = 'admin'
+        , loginPw = SHA2('admin', 256)
         , `name` = '관리자'
         , nickname = 'admin'
         , cellphoneNum = '010-0000-0000'
@@ -118,7 +118,7 @@ INSERT INTO `member`
     SET regDate = NOW()
         , updateDate = NOW()
         , loginId = 'user1'
-        , loginPw = 'user1'
+        , loginPw = SHA2('user1', 256) 
         , `name` = '유저1'
         , nickname = 'user1'
         , cellphoneNum = '010-1111-1111'
@@ -128,7 +128,7 @@ INSERT INTO `member`
     SET regDate = NOW()
         , updateDate = NOW()
         , loginId = 'user2'
-        , loginPw = 'user2'
+        , loginPw = SHA2('user2', 256) 
         , `name` = '유저2'
         , nickname = 'user2'
         , cellphoneNum = '010-2222-2222'

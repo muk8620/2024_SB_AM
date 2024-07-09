@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
+<link rel="shortcut icon" href="/resource/images/favicon.ico" />
 <!-- 테일윈드, daisyUI -->
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.8/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
@@ -32,13 +33,16 @@
 		<div class="grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/test"><span>test</span></a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/apiTest1"><span>APITEST1</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/apiTest2"><span>APITEST2</span></a></li>
 			<c:if test="${rq.loginedMemberId == 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/join"><span>JOIN</span></a></li>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login"><span>LOGIN</span></a></li>
 			</c:if>
 			<c:if test="${rq.loginedMemberId != 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/myPage"><span>MYPAGE</span></a></li>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
 			</c:if>
 		</ul>
