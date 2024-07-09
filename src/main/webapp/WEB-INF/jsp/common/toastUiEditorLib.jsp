@@ -25,7 +25,7 @@
 	      previewStyle: 'tab',
 	      plugins: [colorSyntax]
 	    });
-	
+		
 	    items.data('data-toast-editor', editor);
 	  });
 	});
